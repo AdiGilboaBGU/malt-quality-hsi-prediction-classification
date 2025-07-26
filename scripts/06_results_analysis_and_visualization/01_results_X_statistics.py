@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -13,8 +14,8 @@ import pandas as pd
 import numpy as np
 
 # Load the reflectance data
-# reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species\average_reflectances_with_erosion_1_NONE.xlsx', index_col=0)
-reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed.xlsx', index_col=0)
+# reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_species\average_reflectances_with_erosion_1_NONE.xlsx', index_col=0))
+reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed.xlsx', index_col=0))
 
 # reflectance_df = reflectance_df.set_index('Labels')
 
@@ -87,7 +88,7 @@ import pandas as pd
 import numpy as np
 
 # Load the reflectance data
-reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species\average_reflectances_with_erosion_1_NONE.xlsx')
+reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_species\average_reflectances_with_erosion_1_NONE.xlsx'))
 reflectance_df = reflectance_df.set_index('Labels')
 
 # Define the full list of 204 wavelengths
@@ -134,7 +135,7 @@ summary_stats = summary_stats.round(3)
 # Optional: also show it on screen
 print(summary_stats)
 
-summary_stats.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\summary_stats_X_all_features_named.xlsx')
+summary_stats.to_excel(os.path.join('..', '..', 'datasets', 'summary_stats_X_all_features_named.xlsx'))
 
 
 
@@ -145,15 +146,15 @@ summary_stats.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\summary_
 
 # Load the reflectance data
 
-reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species\average_reflectances_with_erosion_1_NONE.xlsx', index_col=0)
-# reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species\average_reflectances_with_erosion_1_SG_SD.xlsx', index_col=0)
-# reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species\average_reflectances_with_erosion_1_SG_MSC.xlsx', index_col=0)
-# flectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species\average_reflectances_with_erosion_1_SG_SNV.xlsx', index_col=0)
+reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_species\average_reflectances_with_erosion_1_NONE.xlsx', index_col=0))
+# reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_species\average_reflectances_with_erosion_1_SG_SD.xlsx', index_col=0))
+# reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_species\average_reflectances_with_erosion_1_SG_MSC.xlsx', index_col=0))
+# flectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_species\average_reflectances_with_erosion_1_SG_SNV.xlsx', index_col=0))
 
-# reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed.xlsx', index_col=0)
-# reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed_SG_SD.xlsx', index_col=0)
-# reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed_SG_MSC.xlsx', index_col=0)
-# reflectance_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed_SG_SNV.xlsx', index_col=0)
+# reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed.xlsx', index_col=0))
+# reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed_SG_SD.xlsx', index_col=0))
+# reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed_SG_MSC.xlsx', index_col=0))
+# reflectance_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed_SG_SNV.xlsx', index_col=0))
 
 
 

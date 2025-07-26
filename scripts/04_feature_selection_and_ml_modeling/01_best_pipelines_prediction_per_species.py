@@ -105,11 +105,11 @@ def SPA(X, y, n_features):
     return selected_features
 
 # Load data
-folder_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species'
-# y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_prediction\Y.xlsx', index_col=0)
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_prediction\Transformed_Y.xlsx', index_col=0)
+folder_path = os.path.join('..', '..', 'datasets', 'X_by_species')
+# y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_species_prediction\Y.xlsx', index_col=0))
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_species_prediction\Transformed_Y.xlsx', index_col=0))
 
-final_results_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Species_Prediction.xlsx', header=None)
+final_results_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Species_Prediction.xlsx', header=None))
 final_results = {final_results_df.iloc[0, col]: final_results_df.iloc[1, col] for col in final_results_df.columns}
 
 
@@ -235,9 +235,9 @@ for target_var in y_df.columns:
 
 # Save final results to Excel
 results_df = pd.DataFrame(all_results)
-results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image.xlsx', index=False)
-# results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image_Y_Scaled.xlsx', index=False)
-# results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image_Y_Transformed.xlsx', index=False)
-# results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image_Y_Transformed_Scaled.xlsx', index=False)
+results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image.xlsx', index=False))
+# results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image_Y_Scaled.xlsx', index=False))
+# results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image_Y_Transformed.xlsx', index=False))
+# results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image_Y_Transformed_Scaled.xlsx', index=False))
 
 

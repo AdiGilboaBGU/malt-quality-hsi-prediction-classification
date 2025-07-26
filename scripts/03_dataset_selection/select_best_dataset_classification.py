@@ -65,16 +65,9 @@ def train_models(X_train, X_test, y_train, y_test):
 #### Binary Case
 ########################################################################
 
-datasets_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species'
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_classification\binary_data.xlsx', index_col=0)
+datasets_path = os.path.join('..', '..', 'datasets', 'X_by_species')
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_species_classification', 'binary_data.xlsx', index_col=0))
 
-#### Ternary Case
-########################################################################
-
-"""
-# datasets_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species'
-# y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_classification\ternary_data.xlsx', index_col=0)
-"""
 
 # Initialize a dictionary to store the best results for each Y variable
 final_results = {} 
@@ -136,7 +129,7 @@ for target_var in y_df.columns:
 
 # Save final results to Excel
 final_results_df = pd.DataFrame(final_results)
-final_results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Species_Classification_2.xlsx', index=False)
+final_results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Species_Classification_2.xlsx', index=False))
 
 print("Results saved successfully!")
 
@@ -192,15 +185,15 @@ def train_models(X_train, X_test, y_train, y_test):
 #### Binary Case
 ########################################################################
 
-datasets_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed'
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_classification\expanded_binary_data.xlsx', index_col=0)
+datasets_path = os.path.join('..', '..', 'datasets', 'X_by_seed')
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_classification\expanded_binary_data.xlsx', index_col=0))
 
 #### Ternary Case
 ########################################################################
 
 """
-# datasets_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed'
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_classification\expanded_ternary_data.xlsx', index_col=0)
+# datasets_path = os.path.join('..', '..', 'datasets', 'X_by_seed')
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_classification\expanded_ternary_data.xlsx', index_col=0))
 """
 
 # Initialize a dictionary to store the best results for each Y variable
@@ -263,7 +256,7 @@ for target_var in y_df.columns:
 
 # Save final results to Excel
 final_results_df = pd.DataFrame(final_results)
-final_results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Classification_2.xlsx', index=False)
+final_results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Classification_2.xlsx', index=False))
 
 print("Results saved successfully!")
 

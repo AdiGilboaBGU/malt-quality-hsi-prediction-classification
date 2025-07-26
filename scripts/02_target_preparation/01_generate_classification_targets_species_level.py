@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 #### CONVERT Y TO BINARY AND TERNARY CLASSIFICATION
 ##########################################################################################################################
@@ -7,7 +8,7 @@ import numpy as np
 
 
 # Load the data
-file_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_prediction\Y.xlsx'
+file_path = os.path.join('..', '..', 'datasets', 'Y_by_species_prediction\Y.xlsx')
 data = pd.read_excel(file_path)
 
 # Set 'Image_Name' as index
@@ -68,8 +69,8 @@ for column in data.columns:
     }
 
 # Save the processed data to Excel files
-binary_data.to_excel(r'C:\Users\USER\Desktop\excel_files\binary_data.xlsx', index=True)
-ternary_data.to_excel(r'C:\Users\USER\Desktop\excel_files\ternary_data.xlsx', index=True)
+binary_data.to_excel(os.path.join('..', '..', 'datasets', 'binary_data.xlsx'), index=True)
+ternary_data.to_excel(os.path.join('..', '..', 'datasets', 'ternary_data.xlsx'), index=True)
 
 # Print out the statistics for each variable in sorted order by class number
 print("Binary Classification Stats:")

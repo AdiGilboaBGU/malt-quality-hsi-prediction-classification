@@ -20,7 +20,7 @@ def plot_history(history, param_name):
     plt.ylabel('Loss')
     plt.legend()
     plt.grid(True)
-    plt.savefig(fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_cnn_regression_groups\{param_name}_training_validation_loss.png')
+    plt.savefig(fos.path.join('..', '..', 'datasets', 'CNN_results\results_cnn_regression_groups\{param_name}_training_validation_loss.png'))
     plt.close()
 
 
@@ -104,9 +104,9 @@ def evaluate_model(model, X, y, dataset_name, param_name):
 
 
 def save_results_all_in_one(metrics, param_name):
-    file_path = fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_cnn_regression_groups\results_prediction_{param_name}.xlsx'
-#    file_path = fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_cnn_regression_groups_Y_Scaled\results_prediction_{param_name}.xlsx'
-#    file_path = fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_cnn_regression_groups_Y_Transformed_Scaled\results_prediction_{param_name}.xlsx'
+    file_path = fos.path.join('..', '..', 'datasets', 'CNN_results\results_cnn_regression_groups\results_prediction_{param_name}.xlsx')
+#    file_path = fos.path.join('..', '..', 'datasets', 'CNN_results\results_cnn_regression_groups_Y_Scaled\results_prediction_{param_name}.xlsx')
+#    file_path = fos.path.join('..', '..', 'datasets', 'CNN_results\results_cnn_regression_groups_Y_Transformed_Scaled\results_prediction_{param_name}.xlsx')
 
     with pd.ExcelWriter(file_path, engine='openpyxl', mode='w') as writer:
         for dataset_name, data_metrics in metrics.items():
@@ -174,9 +174,9 @@ def create_model(input_shape):
 """
 
 
-features_file = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed_SG_SD.xlsx'
-labels_file = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_prediction\Y_by_seed_prediction.xlsx'
-# labels_file = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_prediction\expanded_Transformed_Y.xlsx'
+features_file = os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed_SG_SD.xlsx')
+labels_file = os.path.join('..', '..', 'datasets', 'Y_by_seed_prediction\Y_by_seed_prediction.xlsx')
+# labels_file = os.path.join('..', '..', 'datasets', 'Y_by_seed_prediction\expanded_Transformed_Y.xlsx')
 y_labels_df = pd.read_excel(labels_file, index_col=0)
 
 for column in y_labels_df.columns:

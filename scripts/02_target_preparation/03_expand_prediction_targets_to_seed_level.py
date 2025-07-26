@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import os
 
 #### EXPAND Y PREDICTION TO SEED LEVEL
 ##########################################################################################################################
@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 # Load the data files
-data_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_prediction\Y.xlsx'
+data_path = os.path.join('..', '..', 'datasets', 'Y_by_species_prediction\Y.xlsx')
 
 data = pd.read_excel(data_path)
 
@@ -26,4 +26,4 @@ def replicate_rows(df, default_times=64, exception_row=33, exception_times=62):
 expanded_prediction_data = replicate_rows(data)
 
 # Save the expanded binary and ternary data to new Excel files
-expanded_prediction_data.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\expanded_prediction_data.xlsx', index=False)
+expanded_prediction_data.to_excel(os.path.join('..', '..', 'datasets', 'expanded_prediction_data.xlsx', index=False))

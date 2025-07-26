@@ -8,7 +8,6 @@ import sys
 import shutil
 from matplotlib import pyplot as plt
 import numpy as np
-import os
 import pandas as pd
 import spectral as spy
 spy.settings.envi_support_nonlowercase_params = True
@@ -16,7 +15,6 @@ from skimage.measure import label, regionprops
 from skimage.filters import threshold_otsu
 from sklearn.preprocessing import StandardScaler
 import numpy as np
-import os
 import pandas as pd
 import spectral as spy
 import matplotlib.pyplot as plt
@@ -27,6 +25,13 @@ import scipy.signal
 from scipy.ndimage import gaussian_filter1d
 import os
 import re
+
+# Change this to the folder that contains the images. They are too big to be added to this git repository
+DATASET_PATH = None
+if DATASET_PATH is None:
+        raise RuntimeError('You need to set DATASET_PATH to a folder containing the dataset!')
+# Go to Parent folder of the images
+os.chdir(DATASET_PATH)
 
 ############################################################################################################
 # Finding the band with the highest reflectance
@@ -202,11 +207,7 @@ def apply_filter(spec_img, filter_type):
 
 ############################################################################################################
 
-def calc_avg_ref (erosion_radius, filter_type):
-
-    # Go to Parent folder of the images
-    dataset_path = 'C:\\Users\gilboa\Desktop\TargetFolder'
-    os.chdir(dataset_path)
+def calc_avg_ref (erosion_radius, filter_type):    
     
     # List the files
     photo_folder = os.listdir()
@@ -227,7 +228,7 @@ def calc_avg_ref (erosion_radius, filter_type):
     # Loading the images
     for file in photo_folder:
         if file.endswith('dat'):
-            dat_file = os.path.join(dataset_path, file)
+            dat_file = os.path.join(DATASET_PATH, file)
             hdr_file = dat_file.replace('.dat', '.hdr')
     
             spec_img_obj = spy.io.envi.open(hdr_file, dat_file)  # Keep it as an object first
@@ -330,7 +331,7 @@ def calc_avg_ref (erosion_radius, filter_type):
     combined_data.rename(columns={'index': 'Labels'}, inplace=True)
    
     # Create a Pandas Excel writer using XlsxWriter as the engine
-    excel_file = excel_file = r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets\average_reflectances_with_erosion_'+str(erosion_radius) +'_'+ filter_type +'.xlsx'
+    excel_file = excel_file = os.path.join('..', '..', 'datasets', 'testing_datasets\average_reflectances_with_erosion_'+str(erosion_radius) +'_'+ filter_type +'.xlsx')
 
     with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
         combined_data.to_excel(writer, sheet_name='All_Images', index=False)
@@ -503,7 +504,7 @@ df_sorted[geometric_columns] = geometric_data
 df_sorted = df_sorted.drop('Image_Number', axis=1)
 
 # Specify the path to your Excel file
-excel_path = r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets\geometric_parameters.xlsx'
+excel_path = os.path.join('..', '..', 'datasets', 'testing_datasets\geometric_parameters.xlsx')
 
 # Use the to_excel method to write the sorted and scaled DataFrame to an Excel file
 df_sorted.to_excel(excel_path, index=False)
@@ -665,7 +666,7 @@ def process_and_plot_seeds_with_correct_reflectance(image, mask, image_key, n_cl
 def run_and_export_data():
 
     # Path where the Excel files will be saved
-    base_path = r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets'
+    base_path = os.path.join('..', '..', 'datasets', 'testing_datasets')
     
     # List of filters
     filter_types = ['SG_FD', 'SG_SD', 'SG_SNV',
@@ -749,8 +750,7 @@ def apply_msc(X):
     return msc_X
 
 def process_images_to_table():
-    dataset_path = r'C:\Users\gilboa\Desktop\TargetFolder'
-    labels_file = r'G:\My Drive\Thesis\Temp_Work\excel_files\labels_categorized.xlsx'
+    labels_file = os.path.join('..', '..', 'datasets', 'labels_categorized.xlsx')
     labels = pd.read_excel(labels_file, index_col=0)
     
     # Store processed features and labels
@@ -758,15 +758,13 @@ def process_images_to_table():
     feature_indices = []  # Indices for features and labels
     y_labels_categorized = []  # To store labels
     
-    
-    os.chdir(dataset_path)
     photo_folder = os.listdir()
     photo_folder = sorted(os.listdir(), key=lambda x: int(x.split('_')[-1].split('.')[0])) 
     
     for file in photo_folder:
         print(file)
         if file.endswith('dat'):
-            dat_file = os.path.join(dataset_path, file)
+            dat_file = os.path.join(DATASET_PATH, file)
             hdr_file = dat_file.replace('.dat', '.hdr')
             
             # Load hyperspectral image
@@ -881,11 +879,11 @@ def process_images_to_table():
 # Process images and save resized seeds
 feature_indices, all_features, y_labels_categorized = process_images_to_table()
 all_features_df = pd.DataFrame(all_features, index=feature_indices)
-all_features_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\X_by_seed_DE_SG_SD.xlsx')
+all_features_df.to_excel(os.path.join('..', '..', 'datasets', 'X_by_seed_DE_SG_SD.xlsx'))
 
 # Save labels to a file
 y_labels_categorized_df = pd.DataFrame(y_labels_categorized, columns=["Label"])
-y_labels_categorized_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\y_labels_categorized_2_moisture_2%.xlsx', index=False)
+y_labels_categorized_df.to_excel(os.path.join('..', '..', 'datasets', 'y_labels_categorized_2_moisture_2%.xlsx', index=False))
 
 
 ############################################################################################################
@@ -998,7 +996,7 @@ for file in sorted_keys:
 df = pd.DataFrame(all_seeds_data)
 
 # Specify the path to your Excel file
-excel_path = r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets\geometric_parameters_PER_SEED.xlsx'
+excel_path = os.path.join('..', '..', 'datasets', 'testing_datasets\geometric_parameters_PER_SEED.xlsx')
 
 # Use the to_excel method to write the DataFrame to an Excel file
 df.to_excel(excel_path, index=False)
@@ -1165,7 +1163,7 @@ def export_to_excel(eroded_images_dict, masks_dict, base_path, filter_types):
     return embryo_reflectance_data_all, endosperm_reflectance_data_all
 
 # Usage
-base_path = r'G:\My Drive\Thesis\Temp_Work\excel_files\kmeans_per_seed'
+base_path = os.path.join('..', '..', 'datasets', 'kmeans_per_seed')
 filter_types = ['SG_FD', 'SG_SD', 'SG_SNV',
                 'SG_MSC', 'SG_FD_SNV', 'MSC_SNV',
                 'DE_SG_SD' ,'NONE']

@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -15,7 +16,7 @@ import seaborn as sns
 #--------------------------------------------------------
 
 # Load the Excel file (make sure it's in the same folder or provide the full path)
-file_path = r'G:\My Drive\Thesis\Temp_Work\excel_files\Y_DL.xlsx'
+file_path = os.path.join('..', '..', 'datasets', 'Y_DL.xlsx')
 df = pd.read_excel(file_path)
 
 # Drop the first column (image name)
@@ -107,7 +108,7 @@ import matplotlib.pyplot as plt
 from pingouin import partial_corr
 
 # Load the Excel file (make sure it's in the same folder or provide the full path)
-file_path = r'G:\My Drive\Thesis\Temp_Work\excel_files\Y_DL.xlsx'
+file_path = os.path.join('..', '..', 'datasets', 'Y_DL.xlsx')
 df = pd.read_excel(file_path)
 
 # Drop the first column (image name)
@@ -150,8 +151,8 @@ plt.show()
 import pandas as pd
 
 # Load the original and binary datasets
-original_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_prediction\Y.xlsx'
-binary_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_classification\binary_data.xlsx'
+original_path = os.path.join('..', '..', 'datasets', 'Y_by_species_prediction\Y.xlsx')
+binary_path = os.path.join('..', '..', 'datasets', 'Y_by_species_classification\binary_data.xlsx')
 
 original_df = pd.read_excel(original_path).drop(columns=["Image_Name"])
 binary_df = pd.read_excel(binary_path).drop(columns=["Image_Name"])
@@ -208,12 +209,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load original (continuous) target variables
-Original_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_prediction\Y.xlsx'
+Original_path = os.path.join('..', '..', 'datasets', 'Y_by_species_prediction\Y.xlsx')
 original_df = pd.read_excel(Original_path)
 original_df = original_df.drop(columns=["Image_Name"])
 
 # Load binary target variables
-Binary_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_classification\binary_data.xlsx'
+Binary_path = os.path.join('..', '..', 'datasets', 'Y_by_species_classification\binary_data.xlsx')
 binary_df = pd.read_excel(Binary_path)
 binary_df = binary_df.drop(columns=["Image_Name"])
 

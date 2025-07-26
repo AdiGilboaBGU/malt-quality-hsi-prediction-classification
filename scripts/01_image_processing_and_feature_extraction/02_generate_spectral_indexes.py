@@ -4,13 +4,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import VarianceThreshold
 from matplotlib import pyplot as plt
 from sklearn.decomposition import PCA
-
+import os
 
 ############################################################################################################
 
 # Step 1: Load the data
-X = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets\average_reflectances_with_erosion_1_NONE.xlsx', index_col=0)
-X = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\average_reflectances_with_erosion1.xlsx', index_col=0)
+X = pd.read_excel(os.path.join('..', '..', 'datasets', 'testing_datasets\average_reflectances_with_erosion_1_NONE.xlsx', index_col=0))
+X = pd.read_excel(os.path.join('..', '..', 'datasets', 'average_reflectances_with_erosion1.xlsx', index_col=0))
 
 # Get the number of columns dynamically
 num_columns = X.shape[1]
@@ -33,7 +33,7 @@ for i in range(num_columns):
 ## Too big to export to excel
 
 # The target variable
-y =  pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets\Y.xlsx')
+y =  pd.read_excel(os.path.join('..', '..', 'datasets', 'testing_datasets\Y.xlsx'))
 y = y.apply(pd.to_numeric)  # Converts data to numeric, setting errors to NaN
 y = y / 100 
 # Turn Y into series variable
@@ -56,7 +56,7 @@ selected_feature_correlations = correlation_with_target[top_features]
 selected_df = indexes_df[top_features]
 
 # Save the reduced DataFrame to an Excel file
-selected_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets\selected_indexes_high_corr.xlsx', index=False)
+selected_df.to_excel(os.path.join('..', '..', 'datasets', 'testing_datasets\selected_indexes_high_corr.xlsx', index=False))
 
 print("Selected features saved to Excel.")
 
@@ -67,8 +67,8 @@ print("Selected features saved to Excel.")
 ############################################################################################################
 
 # Step 1: Load the data
-X = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\X_per_seed.xlsx', index_col=0)
-# X = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\average_reflectances_with_erosion1.xlsx', index_col=0)
+X = pd.read_excel(os.path.join('..', '..', 'datasets', 'X_per_seed.xlsx', index_col=0))
+# X = pd.read_excel(os.path.join('..', '..', 'datasets', 'average_reflectances_with_erosion1.xlsx', index_col=0))
 
 # Get the number of columns dynamically
 num_columns = X.shape[1]
@@ -91,7 +91,7 @@ for i in range(num_columns):
 ## Too big to export to excel
 
 # The target variable
-# y =  pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\testing_datasets\Y.xlsx')
+# y =  pd.read_excel(os.path.join('..', '..', 'datasets', 'testing_datasets\Y.xlsx'))
 # y = y.apply(pd.to_numeric)  # Converts data to numeric, setting errors to NaN
 # y = y / 100 
 # Turn Y into series variable
@@ -109,6 +109,6 @@ selected_df = indexes_df[top_features]
 
 
 # Save the reduced DataFrame to an Excel file
-selected_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files\X_per_seed_indexes.xlsx', index=False)
+selected_df.to_excel(os.path.join('..', '..', 'datasets', 'X_per_seed_indexes.xlsx', index=False))
 
 print("Selected features saved to Excel.")

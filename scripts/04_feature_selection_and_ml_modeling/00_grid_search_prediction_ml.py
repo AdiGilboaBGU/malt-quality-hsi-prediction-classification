@@ -28,8 +28,8 @@ from sklearn.cross_decomposition import PLSRegression
 from collections import Counter
 
 # Define paths
-folder_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed_SG_SD.xlsx'
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_prediction\Y_by_seed_prediction.xlsx', index_col=0)
+folder_path = os.path.join('..', '..', 'datasets', 'X_by_seed_SG_SD.xlsx')
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_prediction\Y_by_seed_prediction.xlsx', index_col=0))
 
 # Load the entire dataset once
 X = pd.read_excel(folder_path, index_col=0)
@@ -91,5 +91,5 @@ for model_name, params_list in param_aggregation.items():
 
 # Save results to Excel
 final_results_df = pd.DataFrame(final_results)
-final_results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Optimal_Models_Results.xlsx', index=False)
+final_results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Optimal_Models_Results.xlsx', index=False))
 print("Optimal results saved to Excel successfully!")

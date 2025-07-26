@@ -1,3 +1,4 @@
+import os
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv1D, Dense, Flatten, Dropout, BatchNormalization, LeakyReLU, Activation
 from tensorflow.keras.optimizers import Adam, SGD, RMSprop
@@ -21,8 +22,8 @@ from collections import defaultdict
 
 
 # Load the data
-features_file = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed_SG_SD.xlsx'
-labels_file = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_classification\expanded_binary_data.xlsx'
+features_file = os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed_SG_SD.xlsx')
+labels_file = os.path.join('..', '..', 'datasets', 'Y_by_seed_classification\expanded_binary_data.xlsx')
 
 X_df = pd.read_excel(features_file, index_col=0)
 y_df = pd.read_excel(labels_file, index_col=0)
@@ -130,7 +131,7 @@ best_params = dict(most_common_params)
 
 # Save to Excel
 final_results_df = pd.DataFrame([{'Model': 'CNN', 'Best Params': best_params}])
-final_results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Optimal_CNN_Results.xlsx', index=False)
+final_results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Optimal_CNN_Results.xlsx', index=False))
 print("Optimal CNN parameters saved to Excel successfully!")
 
 

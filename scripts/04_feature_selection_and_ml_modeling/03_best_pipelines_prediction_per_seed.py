@@ -75,15 +75,15 @@ def load_excel_data_and_groups(features_file):
 
 
 # Load data
-folder_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed'
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_prediction\Y_by_seed_prediction.xlsx', index_col=0)
-# y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_prediction\expanded_Transformed_Y.xlsx', index_col=0)
+folder_path = os.path.join('..', '..', 'datasets', 'X_by_seed')
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_prediction\Y_by_seed_prediction.xlsx', index_col=0))
+# y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_prediction\expanded_Transformed_Y.xlsx', index_col=0))
 
 # Load selected pipelines file (contains chosen feature selection and model per target variable)
-selected_pipelines_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image.xlsx')
+selected_pipelines_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Species\Best_Pipeline_Per_Target_Per_Image.xlsx'))
 selected_pipelines = selected_pipelines_df.set_index('Y Variable').to_dict(orient='index')
 
-final_results_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Prediction.xlsx', header=None)
+final_results_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Prediction.xlsx', header=None))
 final_results = {final_results_df.iloc[0, col]: final_results_df.iloc[1, col] for col in final_results_df.columns}
 
 
@@ -224,10 +224,10 @@ for target_var in y_df.columns:
 
 # Save final results to Excel
 all_results = pd.DataFrame(all_results)
-all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed.xlsx', index=False)
-# all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Scaled.xlsx', index=False)
-# all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Transformed.xlsx', index=False)
-# all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Transformed_Scaled.xlsx', index=False)
+all_results.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed.xlsx', index=False))
+# all_results.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Scaled.xlsx', index=False))
+# all_results.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Transformed.xlsx', index=False))
+# all_results.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Transformed_Scaled.xlsx', index=False))
 
 print("Results saved successfully!")
 

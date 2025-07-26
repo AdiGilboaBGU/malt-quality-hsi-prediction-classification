@@ -76,14 +76,14 @@ def predict_majority_vote_per_seed(model, X, groups, y_true):
 #### Binary Case
 ########################################################################
 
-folder_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed'
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_classification\expanded_binary_data.xlsx', index_col=0)
+folder_path = os.path.join('..', '..', 'datasets', 'X_by_seed')
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_classification\expanded_binary_data.xlsx', index_col=0))
 
 # Load selected pipelines file (contains chosen feature selection and model per target variable)
-selected_pipelines_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Species\Best_Pipeline_Per_Target_Per_Image_2.xlsx')
+selected_pipelines_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Classification_Per_Species\Best_Pipeline_Per_Target_Per_Image_2.xlsx'))
 selected_pipelines = selected_pipelines_df.set_index('Y Variable').to_dict(orient='index')
 
-final_results_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Classification_2.xlsx', header=None)
+final_results_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Classification_2.xlsx', header=None))
 final_results = {final_results_df.iloc[0, col]: final_results_df.iloc[1, col] for col in final_results_df.columns}
 
 # Define classification models
@@ -246,7 +246,7 @@ for target_var in y_df.columns:
     
 # Save final results to Excel
 results_df = pd.DataFrame(all_results)
-results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Per_Seed.xlsx', index=False)
+results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Per_Seed.xlsx', index=False))
 
 print("Results saved successfully!")
 
@@ -289,14 +289,14 @@ def split_groups(groups_list):
 #### Binary Case
 ########################################################################
 
-folder_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed'
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_classification\expanded_binary_data.xlsx', index_col=0)
+folder_path = os.path.join('..', '..', 'datasets', 'X_by_seed')
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_classification\expanded_binary_data.xlsx', index_col=0))
 
 # Load selected pipelines file (contains chosen feature selection and model per target variable)
-selected_pipelines_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Species\Best_Pipeline_Per_Target_Per_Image_2.xlsx')
+selected_pipelines_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Classification_Per_Species\Best_Pipeline_Per_Target_Per_Image_2.xlsx'))
 selected_pipelines = selected_pipelines_df.set_index('Y Variable').to_dict(orient='index')
 
-final_results_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Classification_2.xlsx', header=None)
+final_results_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Classification_2.xlsx', header=None))
 final_results = {final_results_df.iloc[0, col]: final_results_df.iloc[1, col] for col in final_results_df.columns}
 
 # Define classification models
@@ -467,7 +467,7 @@ for target_var in y_df.columns:
 
 # Save results to Excel
 results_df = pd.DataFrame(all_results)
-results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Balanced_Per_Seed.xlsx', index=False)
+results_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Balanced_Per_Seed.xlsx', index=False))
 
 print("Results saved successfully!")
 

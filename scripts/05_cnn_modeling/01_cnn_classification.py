@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,7 +24,7 @@ def plot_history(history, param_name):
     plt.ylabel('Loss')
     plt.legend()
     plt.grid(True)
-    plt.savefig(fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_plots_groups_2_classes\{param_name}_training_validation_loss.png')
+    plt.savefig(fos.path.join('..', '..', 'datasets', 'CNN_results\results_plots_groups_2_classes\{param_name}_training_validation_loss.png'))
     plt.close()
 
     plt.figure(figsize=(12, 6))
@@ -34,7 +35,7 @@ def plot_history(history, param_name):
     plt.ylabel('Accuracy')
     plt.legend()
     plt.grid(True)
-    plt.savefig(fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_plots_groups_2_classes\{param_name}_training_validation_accuracy.png')
+    plt.savefig(fos.path.join('..', '..', 'datasets', 'CNN_results\results_plots_groups_2_classes\{param_name}_training_validation_accuracy.png'))
     plt.close()
 
 
@@ -52,7 +53,7 @@ def plot_density_and_roc(X_test, y_test, model, param_name):
     plt.xlabel('Probability')
     plt.ylabel('Density')
     plt.legend()
-    plt.savefig(fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_plots_groups_2_classes\{param_name}_density_plot.png')
+    plt.savefig(fos.path.join('..', '..', 'datasets', 'CNN_results\results_plots_groups_2_classes\{param_name}_density_plot.png'))
     plt.close()
 
     # ROC curve
@@ -66,7 +67,7 @@ def plot_density_and_roc(X_test, y_test, model, param_name):
     plt.title(f"ROC Curve for {param_name}")
     plt.legend(loc="lower right")
     plt.grid(True)
-    plt.savefig(fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_plots_groups_2_classes\{param_name}_roc_curve_plot.png')
+    plt.savefig(fos.path.join('..', '..', 'datasets', 'CNN_results\results_plots_groups_2_classes\{param_name}_roc_curve_plot.png'))
     plt.close()
 
 
@@ -172,7 +173,7 @@ def save_results_all_in_one(train_metrics, train_confusion_mtx, y_train,
     }
 
     # Path to save the Excel file
-    file_path = fr'G:\My Drive\Thesis\Temp_Work\excel_files_final\CNN_results\results_2_classes_groups_seed_77\results_{param_name}.xlsx'
+    file_path = fos.path.join('..', '..', 'datasets', 'CNN_results\results_2_classes_groups_seed_77\results_{param_name}.xlsx')
 
     # Prepare results for each dataset
     results_data = {
@@ -265,9 +266,9 @@ def create_model(input_shape):
     return model
 
 
-labels_file = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_classification\expanded_binary_data.xlsx'
+labels_file = os.path.join('..', '..', 'datasets', 'Y_by_seed_classification\expanded_binary_data.xlsx')
 y_labels_df = pd.read_excel(labels_file, index_col=0)
-features_file = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed\X_by_seed_SG_SD.xlsx'
+features_file = os.path.join('..', '..', 'datasets', 'X_by_seed\X_by_seed_SG_SD.xlsx')
 
 
 # Process each parameter

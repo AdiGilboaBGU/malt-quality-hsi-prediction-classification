@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import os
 #### EXPAND Y BINARY AND TERNARY CLASSIFICATION TO SEED LEVEL
 ##########################################################################################################################
 ##########################################################################################################################
@@ -8,8 +8,8 @@ import numpy as np
 import pandas as pd
 
 # Load the data files
-binary_data_path = r'C:\Users\USER\Desktop\excel_files\binary_data.xlsx'
-ternary_data_path = r'C:\Users\USER\Desktop\excel_files\ternary_data.xlsx'
+binary_data_path = os.path.join('..', '..', 'datasets', 'binary_data.xlsx')
+ternary_data_path = os.path.join('..', '..', 'datasets', 'ternary_data.xlsx')
 
 binary_data = pd.read_excel(binary_data_path)
 ternary_data = pd.read_excel(ternary_data_path)
@@ -27,5 +27,5 @@ expanded_binary_data = replicate_rows(binary_data)
 expanded_ternary_data = replicate_rows(ternary_data)
 
 # Save the expanded binary and ternary data to new Excel files
-expanded_binary_data.to_excel(r'C:\Users\USER\Desktop\excel_files\expanded_binary_data.xlsx', index=False)
-expanded_ternary_data.to_excel(r'C:\Users\USER\Desktop\excel_files\expanded_ternary_data.xlsx', index=False)
+expanded_binary_data.to_excel(os.path.join('..', '..', 'datasets', 'expanded_binary_data.xlsx'), index=False)
+expanded_ternary_data.to_excel(os.path.join('..', '..', 'datasets', 'expanded_ternary_data.xlsx'), index=False)

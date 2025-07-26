@@ -37,9 +37,9 @@ def train_models(X_train, X_test, y_train, y_test):
 
 # Reading the Excel files
 # Path to the folder containing the Excel files
-datasets_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_species'
+datasets_path = os.path.join('..', '..', 'datasets', 'X_by_species')
 # geo_params_df = pd.read_excel(os.path.join(datasets_path, 'geometric_parameters.xlsx'))
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_species_prediction\Y.xlsx', index_col=0)
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_species_prediction\Y.xlsx', index_col=0))
 
 # Initialize a dictionary to store the best results for each Y variable
 final_results = {} 
@@ -106,7 +106,7 @@ for target_var in y_df.columns:
     }  # Added line to store results
    
 final_results = pd.DataFrame(final_results)
-final_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Species_With_Geometric.xlsx', index=False)
+final_results.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Species_With_Geometric.xlsx', index=False))
 
 ###############################################################
 
@@ -141,7 +141,7 @@ for y_var, results in final_results.items():
 
 # Convert to DataFrame for display
 min_rmsecv_df = pd.DataFrame(min_rmsecv_per_y)
-min_rmsecv_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\min_rmsecv_df.xlsx', index=False)
+min_rmsecv_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\min_rmsecv_df.xlsx', index=False))
 print(min_rmsecv_df)
 
 #--------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ for y_var, results in final_results.items():
 
 # Convert to DataFrame for display
 max_r2_df = pd.DataFrame(max_r2_per_y)
-max_r2_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\max_r2_df.xlsx', index=False)
+max_r2_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\max_r2_df.xlsx', index=False))
 print(max_r2_df)
 
 ##############################################################################################################################
@@ -201,9 +201,9 @@ def train_models(X_train, X_test, y_train, y_test):
 
 # Reading the Excel files
 # Path to the folder containing the Excel files
-datasets_path = r'G:\My Drive\Thesis\Temp_Work\excel_files_final\X_by_seed'
+datasets_path = os.path.join('..', '..', 'datasets', 'X_by_seed')
 # geo_params_df = pd.read_excel(os.path.join(datasets_path, 'geometric_parameters.xlsx'))
-y_df = pd.read_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\Y_by_seed_prediction\Y_by_seed_prediction.xlsx', index_col=0)
+y_df = pd.read_excel(os.path.join('..', '..', 'datasets', 'Y_by_seed_prediction\Y_by_seed_prediction.xlsx', index_col=0))
 
 # Initialize a dictionary to store the best results for each Y variable
 final_results = {} 
@@ -269,7 +269,7 @@ for target_var in y_df.columns:
     }  # Added line to store results
    
 final_results = pd.DataFrame(final_results)
-final_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Without_Geometric.xlsx', index=False)
+final_results.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\Best_Dataset_Per_Seed_Without_Geometric.xlsx', index=False))
 
 
 ###############################################################
@@ -305,7 +305,7 @@ for y_var, results in final_results.items():
 
 # Convert to DataFrame for display
 min_rmsecv_df = pd.DataFrame(min_rmsecv_per_y)
-min_rmsecv_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\min_rmsecv_df.xlsx', index=False)
+min_rmsecv_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\min_rmsecv_df.xlsx', index=False))
 print(min_rmsecv_df)
 
 #--------------------------------------------------------------------------------
@@ -333,5 +333,5 @@ for y_var, results in final_results.items():
 
 # Convert to DataFrame for display
 max_r2_df = pd.DataFrame(max_r2_per_y)
-max_r2_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Dataset_Per_Y\max_r2_df.xlsx', index=False)
+max_r2_df.to_excel(os.path.join('..', '..', 'datasets', 'ML_results\Best_Dataset_Per_Y\max_r2_df.xlsx', index=False))
 print(max_r2_df)
