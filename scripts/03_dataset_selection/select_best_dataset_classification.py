@@ -15,6 +15,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 
+##############################################################################################################################
+#### COMPARE DATASET PER SPECIES FOR CLASSIFICATION
+##############################################################################################################################
+##############################################################################################################################
+
 #### ALSO 2 AND 3 CLASSIFICATION
 
 # Function to plot confusion matrix

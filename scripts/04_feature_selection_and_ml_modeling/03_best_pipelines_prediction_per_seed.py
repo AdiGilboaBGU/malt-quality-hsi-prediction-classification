@@ -14,34 +14,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from xgboost import XGBRegressor
 from sklearn.model_selection import GroupShuffleSplit
-from collections import Counter
-
-#### Best pipeline prediction per seed with groups and IQR
-
-
-# Function to remove outliers based on IQR
-def remove_outliers_iqr(X, y, groups):
-    outlier_indices = []
-    for column in X.columns:
-        Q1 = X[column].quantile(0.25)
-        Q3 = X[column].quantile(0.75)
-        IQR = Q3 - Q1
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
-        column_outliers = X[(X[column] < lower_bound) | (X[column] > upper_bound)].index
-        outlier_indices.extend(column_outliers)
-
-    outlier_count = Counter(outlier_indices)
-    multiple_outliers = [k for k, v in outlier_count.items() if v > 1]  # Remove records that are outliers in multiple features
-    print(f"Total outliers detected in multiple features: {len(multiple_outliers)}")
-    y = pd.Series(y, index=X.index)
-    X_cleaned = X.drop(multiple_outliers)
-    y_cleaned = y.drop(multiple_outliers)
-    groups_cleaned = groups[np.isin(X.index, y_cleaned.index)]
-    
-    print(f"Dataset size after outlier removal: {X_cleaned.shape[0]} samples")
-    return X_cleaned, y_cleaned, groups_cleaned
-
 
 #### Best pipeline prediction per seed with groups 
 
@@ -117,6 +89,8 @@ final_results = {final_results_df.iloc[0, col]: final_results_df.iloc[1, col] fo
 
 # Function to calculate mean prediction per group and evaluate model
 def predict_mean_per_group_and_evaluate(model, X, y, groups):
+#    y = np.array(y).ravel()
+
     predictions = model.predict(X).flatten()
     df = pd.DataFrame({'Group': groups, 'Predictions': predictions, 'Actual': y})
     group_means = df.groupby('Group').mean().to_dict()['Predictions']
@@ -162,10 +136,6 @@ for target_var in y_df.columns:
 
     # Load dataset with group information
     X, groups = load_excel_data_and_groups(data_path)
-    
-    # Remove outliers before further processing
-    X, y, groups = remove_outliers_iqr(X, y, groups)
-
     X = X.select_dtypes(include=[np.number])  
     X.columns = X.columns.astype(str)  
 
@@ -227,6 +197,8 @@ for target_var in y_df.columns:
 
     # Train the model only AFTER feature selection
     model = models[selected_model]
+#    y_train = np.array(y_train).ravel()
+
     model.fit(X_transformed, y_train)
     
     # Evaluate performance using the transformed feature set
@@ -252,11 +224,10 @@ for target_var in y_df.columns:
 
 # Save final results to Excel
 all_results = pd.DataFrame(all_results)
-all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_IQR.xlsx', index=False)
+all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed.xlsx', index=False)
 # all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Scaled.xlsx', index=False)
 # all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Transformed.xlsx', index=False)
 # all_results.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Prediction_Per_Seed\Best_Results_With_Groups_Per_Seed_Y_Transformed_Scaled.xlsx', index=False)
 
 print("Results saved successfully!")
-
 

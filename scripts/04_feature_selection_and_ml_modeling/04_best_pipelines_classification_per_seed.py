@@ -1,6 +1,7 @@
 #### CLASSIFICATION WITH GROUPS WITH MAJOTIRY VOTE
 ############################################################################
 ############################################################################
+
 import os
 import pandas as pd
 import numpy as np
@@ -16,32 +17,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from xgboost import XGBClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from collections import Counter
 
-#### Best pipeline classification per seed with groups and IQR
 
-# Function to remove outliers based on IQR
-def remove_outliers_iqr(X, y, groups):
-    outlier_indices = []
-    for column in X.columns:
-        Q1 = X[column].quantile(0.25)
-        Q3 = X[column].quantile(0.75)
-        IQR = Q3 - Q1
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
-        column_outliers = X[(X[column] < lower_bound) | (X[column] > upper_bound)].index
-        outlier_indices.extend(column_outliers)
+#### Best pipeline classification per seed with groups and Balanced
 
-    outlier_count = Counter(outlier_indices)
-    multiple_outliers = [k for k, v in outlier_count.items() if v > 1]  # Remove records that are outliers in multiple features
-    print(f"Total outliers detected in multiple features: {len(multiple_outliers)}")
-    
-    X_cleaned = X.drop(multiple_outliers)
-    y_cleaned = y.drop(multiple_outliers)
-    groups_cleaned = groups[np.isin(X.index, y_cleaned.index)]
-    
-    print(f"Dataset size after outlier removal: {X_cleaned.shape[0]} samples")
-    return X_cleaned, y_cleaned, groups_cleaned
 
 # Function to plot confusion matrix
 def plot_confusion_matrix(y_true, y_pred, title):
@@ -119,7 +98,7 @@ models = {
 # Define feature selection techniques for classification
 feature_selection_methods = {
     'No Selection': None,  
-    'RFE': RFE(estimator=SVC(kernel="linear"), n_features_to_select=10),
+#    'RFE': RFE(estimator=SVC(kernel="linear"), n_features_to_select=10),
     'SelectKBest_f': SelectKBest(score_func=f_classif, k=10),
     'PCA': PCA(n_components=0.95)
 }
@@ -129,16 +108,12 @@ all_results = []
 # Process each target variable
 for target_var in y_df.columns:
     print(f"\nProcessing Target Variable: {target_var}")
-    y = pd.Series(np.array(y_df[target_var]), index=y_df.index)
-#    y = y_df[target_var].values
+    y = y_df[target_var].values
     data_path = os.path.join(folder_path, final_results[target_var])
     print(f"Using Dataset: {final_results[target_var]}")
 
     # Load dataset with group information
     X, groups = load_excel_data_and_groups(data_path)
-    # Remove outliers before further processing
-    X, y, groups = remove_outliers_iqr(X, y, groups)
-
     X = X.select_dtypes(include=[np.number])  
     X.columns = X.columns.astype(str)  
 
@@ -188,7 +163,8 @@ for target_var in y_df.columns:
             selected_features = X.columns[selector.get_support()].tolist()  # Retrieve the names of the selected features if possible
         else:
             selected_features = []  # If the method does not support listing features
-
+            
+            
     from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score, roc_auc_score
     
     # Train and evaluate the selected model
@@ -231,14 +207,14 @@ for target_var in y_df.columns:
         'Train Accuracy': train_accuracy,
         'Test Accuracy': test_accuracy,
         
-         # Majority Vote Accuracy
+        # Majority Vote Accuracy
         'Train Majority Vote Accuracy': train_majority_vote_accuracy,
         'Test Majority Vote Accuracy': test_majority_vote_accuracy,
-        
+
         # F1 Score
         'Train F1 Score': train_f1,
-        'Test F1 Score': test_f1,
-              
+        'Test F1 Score': test_f1,      
+       
         # AUC
         'Train AUC': train_auc,
         'Test AUC': test_auc,
@@ -270,42 +246,15 @@ for target_var in y_df.columns:
     
 # Save final results to Excel
 results_df = pd.DataFrame(all_results)
-results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Per_Seed_IQR.xlsx', index=False)
+results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Per_Seed.xlsx', index=False)
 
 print("Results saved successfully!")
 
+    
 
-
-#### CLASSIFICATION WITH GROUPS WITH MAJOTIRY VOTE AND BALANCED
+#### CLASSIFICATION WITH GROUPS WITH MAJOTIRY VOTE
 ############################################################################
 ############################################################################
-from collections import Counter
-
-#### Best pipeline classification per seed with groups and IQR
-
-# Function to remove outliers based on IQR
-def remove_outliers_iqr(X, y, groups):
-    outlier_indices = []
-    for column in X.columns:
-        Q1 = X[column].quantile(0.25)
-        Q3 = X[column].quantile(0.75)
-        IQR = Q3 - Q1
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
-        column_outliers = X[(X[column] < lower_bound) | (X[column] > upper_bound)].index
-        outlier_indices.extend(column_outliers)
-
-    outlier_count = Counter(outlier_indices)
-    multiple_outliers = [k for k, v in outlier_count.items() if v > 1]  # Remove records that are outliers in multiple features
-    print(f"Total outliers detected in multiple features: {len(multiple_outliers)}")
-    
-    y = pd.Series(y, index=X.index)
-    X_cleaned = X.drop(multiple_outliers)
-    y_cleaned = y.drop(multiple_outliers)
-    groups_cleaned = groups[np.isin(X.index, y_cleaned.index)]
-    
-    print(f"Dataset size after outlier removal: {X_cleaned.shape[0]} samples")
-    return X_cleaned, y_cleaned, groups_cleaned
 
 # Function to plot confusion matrix
 def plot_confusion_matrix(y_true, y_pred, title):
@@ -362,7 +311,7 @@ models = {
 # Define feature selection techniques for classification
 feature_selection_methods = {
     'No Selection': None,  
-    'RFE': RFE(estimator=SVC(kernel="linear"), n_features_to_select=10),
+#    'RFE': RFE(estimator=SVC(kernel="linear"), n_features_to_select=10),
     'SelectKBest_f': SelectKBest(score_func=f_classif, k=10),
     'PCA': PCA(n_components=0.95)
 }
@@ -377,11 +326,7 @@ for target_var in y_df.columns:
     print(f"Using Dataset: {final_results[target_var]}")
 
     # Load dataset with group information
-    # Load dataset with group information
     X, groups = load_excel_data_and_groups(data_path)
-    # Remove outliers before further processing
-    X, y, groups = remove_outliers_iqr(X, y, groups)
-
     X = X.select_dtypes(include=[np.number])  
     X.columns = X.columns.astype(str)  
 
@@ -483,7 +428,7 @@ for target_var in y_df.columns:
         # Accuracy
         'Train Accuracy': train_accuracy,
         'Test Accuracy': test_accuracy,
-        
+
         # Majority Vote Accuracy
         'Train Majority Vote Accuracy': train_majority_vote_accuracy,
         'Test Majority Vote Accuracy': test_majority_vote_accuracy,
@@ -491,7 +436,7 @@ for target_var in y_df.columns:
         # F1 Score
         'Train F1 Score': train_f1,
         'Test F1 Score': test_f1,
-                 
+            
         # AUC
         'Train AUC': train_auc,
         'Test AUC': test_auc,
@@ -522,6 +467,7 @@ for target_var in y_df.columns:
 
 # Save results to Excel
 results_df = pd.DataFrame(all_results)
-results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Balanced_Per_Seed_IQR.xlsx', index=False)
+results_df.to_excel(r'G:\My Drive\Thesis\Temp_Work\excel_files_final\ML_results\Best_Pipline_Per_Y\Classification_Per_Seed\Best_Results_With_Groups_Balanced_Per_Seed.xlsx', index=False)
 
 print("Results saved successfully!")
+
